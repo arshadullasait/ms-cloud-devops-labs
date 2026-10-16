@@ -33,3 +33,14 @@ describe('sortNotes', () => {
     expect(sortNotes([older, newer]).map((n) => n.id)).toEqual(['2', '1']);
   });
 });
+
+describe('buildNote extras', () => {
+  it('stamps createdAt from the time it is given', () => {
+    const when = new Date('2026-10-16T10:00:00.000Z');
+    expect(buildNote({ title: 'timed' }, when).createdAt).toBe('2026-10-16T10:00:00.000Z');
+  });
+
+  it('rejects a title that is not a string', () => {
+    expect(() => buildNote({ title: 42 })).toThrow(ValidationError);
+  });
+});
